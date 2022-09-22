@@ -24,7 +24,7 @@ def translate_into_japanese(text):
     }
 
     request = requests.post("https://api-free.deepl.com/v2/translate", data=params)
-    result = request.json
+    result = request.json()
 
     translated_text = result["translations"][0]["text"]
     return translated_text 
@@ -36,6 +36,8 @@ if __name__ == "__main__":
         print(paper.title)
         print(paper.published)
 
+    print("deepl test")
+    print(translate_into_japanese("test"))
     """
     paper = next(papers.results())
     print(paper.title)
