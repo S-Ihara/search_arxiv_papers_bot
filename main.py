@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from get_papers import get_papers
 from save_papers_abstract import save_papers
-from settings import Search_Keywords
+from settings import Search_Querys
 
 @dataclass
 class Paperinfo:
@@ -35,8 +35,8 @@ def main(size=10):
         os.mkdir("./papers")
     
     cnt = 0
-    for keyword in Search_Keywords:
-        papers = get_papers(query=keyword,max_num=size)
+    for query in Search_Querys:
+        papers = get_papers(query=query,max_num=size)
         for paper in papers.results():
             title = paper.title
             summary = paper.summary
