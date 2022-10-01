@@ -1,4 +1,5 @@
 import os 
+import argparse
 import datetime
 from dataclasses import dataclass
 
@@ -50,6 +51,9 @@ def main(size=10):
     print(f"{cnt} papers are added.")
 
 if __name__ == "__main__":
-    main(size=5)
+    print("parser test")
+    parser = argparse.ArgumentParser(description='')
+    parser.add_argument("--size","-S",type=int,default=5,help="Number of search papers for each query")
+    args = parser.parse_args()
 
-
+    main(size=args.size)
