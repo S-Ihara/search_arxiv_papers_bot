@@ -30,7 +30,12 @@ Search_Querys = [
 ```
 
 ### 実行
-``` python 
+``` python
 python main.py
 ```
 上記コマンドを実行することでpapersファイルに論文の情報がtxtファイルで保存される。
+
+
+## TODO
+-[ ] slackかteamsかなんかに送ってさっとみれるようなbotの作成
+-[ ] paperの一覧を簡単に見れるようなUI(streamlitとかで作れるか？)
