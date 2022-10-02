@@ -51,7 +51,7 @@ def save_papers(paperinfo):
         title = title.replace("\"","\'")
     
     if "?" in title:
-        title = title.repalce("?","？")
+        title = title.replace("?","？")
 
     if "*" in title:
         title = title.replace("*",".")
