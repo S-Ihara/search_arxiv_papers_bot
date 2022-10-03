@@ -7,6 +7,7 @@ arXivから論文を引っ張ってくるbot
 ```
 arxiv==1.4.2
 requests
+streamlit
 ```
 
 ## 使い方
