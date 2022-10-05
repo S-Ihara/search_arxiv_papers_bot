@@ -12,6 +12,8 @@ def _save_papers_metainfo(metainfo,title):
         f.write(metainfo.title + "\n")
         f.write(str(metainfo.published) + "\n")
         f.write(metainfo.url + "\n")
+        category_str = str(metainfo.category).replace("'","")
+        f.write(category_str + "\n")
         try:
             f.write(metainfo.summary.replace("\n"," "))
         except UnicodeEncodeError as e:

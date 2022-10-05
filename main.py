@@ -13,6 +13,7 @@ class Paperinfo:
     url: str
     published: datetime.date
     summary: str
+    category: list
 
 def _translate_into_japanese(text):
     source_lang = "EN"
@@ -43,7 +44,8 @@ def main(size=10):
             summary = paper.summary
             published = paper.published.date()
             paper_url = paper.entry_id
-            paperinfo = Paperinfo(title,paper_url,published,summary)
+            category = paper.primary_category
+            paperinfo = Paperinfo(title,paper_url,published,summary,category)
 
             new_check = save_papers(paperinfo)
             cnt += new_check
