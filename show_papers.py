@@ -15,10 +15,23 @@ def init():
     papers_size["All"] = len(papers)
     papers_size["Sorted"] = len(papers)
 
+    #global start_index
+    #global end_index
+    #global num_papers_show
+    #num_papers_show = 10
+    #start_index = 0
+    #end_index = min(num_papers_show,papers_size["All"])
+    if "init" not in st.session_state:
+        st.session_state["init"] = True 
+        st.session_state["num_papers_show"] = 10
+        st.session_state["start_index"] = 0
+        st.session_state["end_index"] = min(st.session_state["num_papers_show"],papers_size["All"])
+
     _sort_papers_list()
 
 def side_bar():
     global select
+    global pages
     with st.sidebar:
         st.sidebar.write("Mode")
         select = st.selectbox("Select show mode.",
@@ -26,6 +39,15 @@ def side_bar():
                              )
 
         st.write(f"Number of papers in \"{select}\" category: {papers_size[select]}")
+
+        # 改ページ機能
+        num_pages = papers_size[select] // st.session_state["num_papers_show"]
+        pages = st.number_input("Pages",
+                                min_value=0,
+                                max_value=num_pages)
+        st.session_state["start_index"] = pages * st.session_state["num_papers_show"]
+        st.session_state["end_index"] = min(st.session_state["start_index"] + st.session_state["num_papers_show"],papers_size[select])
+        st.write(f"pages : {0} - {num_pages}")
 
 def _sort_papers_list():
     global papers_dict
@@ -62,7 +84,9 @@ def _show_paper(**kwargs):
 
 def show_all_papers():
     # 雑に全部表示
-    for paper in papers:
+    start_index = st.session_state["start_index"]
+    end_index = st.session_state["end_index"]
+    for paper in papers[start_index:end_index]:
         papers_path = "papers/" + paper + "/" 
         with open(papers_path + "metainfo.txt","r") as info:
             title,date,url,category,_ = info.readlines()
@@ -74,7 +98,9 @@ def show_all_papers():
         _show_paper(title=title,date=date,url=url,category=categories,abstract=abstract)
 
 def show_sorted_papers():
-    for dicted_paper in papers_dict:
+    start_index = st.session_state["start_index"]
+    end_index = st.session_state["end_index"]
+    for dicted_paper in papers_dict[start_index:end_index]:
         papers_path = "papers/" + dicted_paper[0] + "/"
         with open(papers_path + "metainfo.txt","r") as info:
             title,date,url,category,_ = info.readlines()
@@ -85,6 +111,9 @@ def show_sorted_papers():
         _show_paper(title=title,date=date,url=url,category=categories,abstract=abstract)
 
 def show_specific_category_papers(target):
+    start_index = st.session_state["start_index"]
+    end_index = st.session_state["end_index"]
+    count = 0
     for dicted_paper in papers_dict:
         papers_path = "papers/" + dicted_paper[0] + "/" 
         with open(papers_path + "metainfo.txt","r") as info:
@@ -94,8 +123,9 @@ def show_specific_category_papers(target):
     
         categories = category[1:-2]
         if target in categories:
-            _show_paper(title=title,date=date,url=url,category=categories,abstract=abstract)
-
+            if start_index <= count < end_index:
+                _show_paper(title=title,date=date,url=url,category=categories,abstract=abstract)
+            count += 1
 
 def main_page():
     init() 
