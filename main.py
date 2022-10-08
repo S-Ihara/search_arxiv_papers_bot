@@ -44,7 +44,7 @@ def main(size=10):
             summary = paper.summary
             published = paper.published.date()
             paper_url = paper.entry_id
-            category = paper.primary_category
+            category = paper.categories
             paperinfo = Paperinfo(title,paper_url,published,summary,category)
 
             new_check = save_papers(paperinfo)
