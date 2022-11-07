@@ -5,7 +5,13 @@ from settings import API_KEY
 
 def _save_papers_abstract(abst,title):
     with open("./papers/" + title + "/abstract.txt","w") as f:
-        f.write(abst)
+        try:
+            f.write(abst)
+        except UnicodeEncodeError as e:
+            f.write("failed")
+            print("error:",e)
+            print(abst)
+            pass
 
 def _save_papers_metainfo(metainfo,title):
     with open("./papers/" + title + "/metainfo.txt","w") as f:
@@ -57,6 +63,9 @@ def save_papers(paperinfo):
 
     if "*" in title:
         title = title.replace("*",".")
+    
+    if "/" in title:
+        title = title.replace("/",",")
 
     if not os.path.exists("./papers/" + title):
         os.mkdir("./papers/" + title)

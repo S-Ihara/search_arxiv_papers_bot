@@ -1,4 +1,4 @@
-import os 
+import os
 import argparse
 import datetime
 from dataclasses import dataclass
@@ -18,7 +18,7 @@ class Paperinfo:
 def _translate_into_japanese(text):
     source_lang = "EN"
     target_lang = "JA"
-    
+
     params = {
         "auth_key"    : API_KEY,
         "text"        : text,
@@ -30,12 +30,12 @@ def _translate_into_japanese(text):
     result = request.json()
 
     translated_text = result["translations"][0]["text"]
-    return translated_text 
+    return translated_text
 
 def main(size=10):
     if not os.path.exists("./papers"):
         os.mkdir("./papers")
-    
+
     cnt = 0
     for query in Search_Querys:
         papers = get_papers(query=query,max_num=size)
@@ -49,12 +49,12 @@ def main(size=10):
 
             new_check = save_papers(paperinfo)
             cnt += new_check
-    
+
     print(f"{cnt} papers are added.")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument("--size","-S",type=int,default=5,help="Number of search papers for each query")
+    parser.add_argument("--size","-S",type=int,default=10,help="Number of search papers for each query")
     args = parser.parse_args()
 
     main(size=args.size)
