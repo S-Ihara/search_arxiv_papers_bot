@@ -37,6 +37,6 @@ python main.py
 上記コマンドを実行することでpapersファイルに論文の情報がtxtファイルで保存される。
 
 
-## TODO
--[ ] slackかteamsかなんかに送ってさっとみれるようなbotの作成
--[ ] paperの一覧を簡単に見れるようなUI(streamlitとかで作れるか？)
+## TODO  
+- [ ] slackかteamsかなんかに送ってさっとみれるようなbotの作成
+- [x] paperの一覧を簡単に見れるようなUI(streamlitとかで作れるか？)
