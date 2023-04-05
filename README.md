@@ -1,7 +1,7 @@
 # search_arxiv_papers_bot
 
 ## これは何
-arXivから論文を引っ張ってくるbot
+arXivから論文を引っ張ってきてアブストをDeepLに訳してもらうやつ
 
 ## requirements
 ```
